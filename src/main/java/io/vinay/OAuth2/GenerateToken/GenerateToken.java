@@ -7,6 +7,12 @@ import java.util.Random;
 public class GenerateToken {
 
     private static Random random = new Random();
+    private static final Long SECOND = 1000L;
+    private static final Long MINUTE = 60 * SECOND;
+    private static final Long HOUR = 60 * MINUTE;
+    private static final Long DAY = 24 * HOUR;
+    private static final Long MONTH = 30 * DAY;
+    private static final Long YEAR = 365 * DAY;
 
     // Token Id of length 16 digit
     public static String generateTokenId() {
@@ -27,9 +33,8 @@ public class GenerateToken {
 
         String tokenId = GenerateToken.generateTokenId();
         String OTP = GenerateToken.generateOTP();
-        final Long SEC = 1000L;
-        final Long MIN = 60 * SEC;
-        Long time = System.currentTimeMillis() + 2 * MIN;
+
+        Long time = System.currentTimeMillis() + 2 * MINUTE;
 
         return new SignUpToken(tokenId, OTP, time, phone);
     }
