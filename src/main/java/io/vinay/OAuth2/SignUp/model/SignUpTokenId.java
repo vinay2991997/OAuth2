@@ -9,6 +9,11 @@ public class SignUpTokenId {
         this.message = "Oops.... Account already Existed with these credentials!!";
     }
 
+    public SignUpTokenId(String message) {
+        this.signUpTokenId = "------";
+        this.message = message;
+    }
+
     public SignUpTokenId(String signUpTokenId, String message) {
         this.signUpTokenId = signUpTokenId;
         this.message = message;

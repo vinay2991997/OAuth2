@@ -6,6 +6,8 @@ import io.vinay.OAuth2.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Pattern;
+
 @Service
 public class UserService {
 
@@ -18,5 +20,9 @@ public class UserService {
 
     public boolean initialCheck(String phone, String email) {
         return !userRepository.existsById(phone) && !userRepository.existsByEmail(email);
+    }
+
+    public boolean isPhoneValid(String phone) {
+        return Pattern.matches("[0-9]{10}", phone);
     }
 }

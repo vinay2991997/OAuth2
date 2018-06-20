@@ -30,6 +30,11 @@ public class SignUpController {
     @RequestMapping(method = RequestMethod.POST, value = "/signup")
     public SignUpTokenId request(@RequestBody User user) {
 
+        if (!userService.isPhoneValid(user.getPhone())) {
+            return new SignUpTokenId("Phone number is not valid");
+        }
+
+
         if (userService.initialCheck(user.getPhone(), user.getEmail())) {
 
             // send otp
@@ -66,12 +71,10 @@ public class SignUpController {
         // check if the otp is valid
         String OTPinDB = signUpTokenService.getOtp(signUpIDOTP.getTokenId());
         String OTPbyUser = signUpIDOTP.getOTP();
-        System.out.println("db : " + OTPinDB);
-        System.out.println("user : " + OTPbyUser);
-
+        // System.out.println("db : " + OTPinDB);
+        // System.out.println("user : " + OTPbyUser);
 
         if (OTPinDB.equals(OTPbyUser)) {
-
 
             // if yes then transfer account from park to main
             String phone = signUpTokenService.getPhone(signUpIDOTP.getTokenId());
