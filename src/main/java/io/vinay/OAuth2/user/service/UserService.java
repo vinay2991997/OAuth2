@@ -25,4 +25,12 @@ public class UserService {
     public boolean isPhoneValid(String phone) {
         return Pattern.matches("[0-9]{10}", phone);
     }
+
+    public User get(String phone) {
+        return userRepository.getOne(phone);
+    }
+
+    public boolean has(String phone) {
+        return userRepository.existsById(phone);
+    }
 }

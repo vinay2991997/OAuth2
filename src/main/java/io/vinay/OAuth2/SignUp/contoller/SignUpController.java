@@ -54,18 +54,18 @@ public class SignUpController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/signup/validate")
-    public String validate(@RequestBody SignUpIDOTP signUpIDOTP) {
+    public SignUpTokenId validate(@RequestBody SignUpIDOTP signUpIDOTP) {
 
         System.out.println(signUpIDOTP);
 
         if (!signUpTokenService.has(signUpIDOTP.getTokenId())) {
-            return "Invalid signUp token";
+            return new SignUpTokenId("Invalid signUp token");
         }
 
 
         // check for the time
         if (signUpTokenService.getTime(signUpIDOTP.getTokenId()) < System.currentTimeMillis()) {
-            return "SignUp token has been Expired!!";
+            return new SignUpTokenId("SignUp token has been Expired!!");
         }
 
         // check if the otp is valid
@@ -84,9 +84,9 @@ public class SignUpController {
             parkUserService.remove(phone);
             signUpTokenService.remove(signUpIDOTP.getTokenId());
 
-            return "Phone number verified and Account Created Successfully!";
+            return new SignUpTokenId("Phone number verified and Account Created Successfully!");
         }
 
-        return "Invalid OTP";
+        return new SignUpTokenId("Invalid OTP");
     }
 }

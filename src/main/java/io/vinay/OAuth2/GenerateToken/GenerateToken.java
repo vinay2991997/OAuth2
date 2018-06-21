@@ -38,4 +38,5 @@ public class GenerateToken {
 
         return new SignUpToken(tokenId, OTP, time, phone);
     }
+
 }
