@@ -30,4 +30,8 @@ public class ClientService {
     public boolean existByName(String appName) {
         return clientRepository.existsByAppName(appName);
     }
+
+    public boolean existById(String clientId) {
+        return clientRepository.existsById(clientId);
+    }
 }

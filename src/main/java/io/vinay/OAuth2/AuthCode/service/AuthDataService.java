@@ -38,4 +38,12 @@ public class AuthDataService {
                 .get()
                 .getAuthCode());
     }
+
+    public boolean existById(String authCode) {
+        return authDataRepository.existsById(authCode);
+    }
+
+    public AuthData get(String authCode) {
+        return authDataRepository.getOne(authCode);
+    }
 }

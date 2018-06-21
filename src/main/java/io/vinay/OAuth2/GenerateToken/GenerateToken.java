@@ -1,5 +1,6 @@
 package io.vinay.OAuth2.GenerateToken;
 
+import io.vinay.OAuth2.AccessToken.model.AccessToken;
 import io.vinay.OAuth2.SignUp.model.SignUpToken;
 
 import java.util.Random;
@@ -39,4 +40,12 @@ public class GenerateToken {
         return new SignUpToken(tokenId, OTP, time, phone);
     }
 
+    // Generate a new SignUpToken
+    public static AccessToken generateAccessToken(String phone) {
+
+        String tokenId = GenerateToken.generateTokenId();
+        Long time = System.currentTimeMillis() + MONTH;
+
+        return new AccessToken(tokenId,time,phone);
+    }
 }
