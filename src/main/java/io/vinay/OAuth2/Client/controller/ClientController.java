@@ -1,5 +1,6 @@
 package io.vinay.OAuth2.Client.controller;
 
+import io.vinay.OAuth2.Client.model.AppNameInput;
 import io.vinay.OAuth2.Client.model.Client;
 import io.vinay.OAuth2.Client.service.ClientService;
 import io.vinay.OAuth2.GenerateToken.GenerateToken;
@@ -16,7 +17,8 @@ public class ClientController {
     private ClientService clientService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/registerMyApp")
-    public Client registerClient(@RequestBody String appName) {
+    public Client registerClient(@RequestBody AppNameInput appNameInput) {
+        String appName = appNameInput.getAppName();
         if (clientService.existByName(appName)){
             return clientService.findByName(appName);
         }
