@@ -5,6 +5,8 @@ import io.vinay.OAuth2.Client.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
+
 @Service
 public class ClientService {
 
@@ -33,5 +35,19 @@ public class ClientService {
 
     public boolean existById(String clientId) {
         return clientRepository.existsById(clientId);
+    }
+
+    public String getClientId(String encoded_auth) {
+        String withoutBasic = encoded_auth.substring(6);
+        String client = new String(Base64.getDecoder().decode(withoutBasic));
+        String clientId = client.substring(0, client.indexOf(':'));
+        return clientId;
+    }
+
+    public String getClientSecret(String encoded_auth) {
+        String withoutBasic = encoded_auth.substring(6);
+        String client = new String(Base64.getDecoder().decode(withoutBasic));
+        String clientSecret = client.substring(client.indexOf(':') + 1, client.length());
+        return clientSecret;
     }
 }

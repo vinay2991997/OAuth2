@@ -10,10 +10,7 @@ import io.vinay.OAuth2.SignUp.service.SignUpTokenService;
 import io.vinay.OAuth2.user.model.User;
 import io.vinay.OAuth2.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class SignUpController {
@@ -53,9 +50,11 @@ public class SignUpController {
         return new SignUpTokenId();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/signup/validate")
-    public SignUpTokenId validate(@RequestBody SignUpIDOTP signUpIDOTP) {
+    @RequestMapping(method = RequestMethod.GET, value = "/signup/validate")
+    public SignUpTokenId validate(@RequestHeader(value = "token") String token,
+                                  @RequestHeader(value = "otp") String otp) {
 
+        SignUpIDOTP signUpIDOTP = new SignUpIDOTP(token,otp);
         System.out.println(signUpIDOTP);
 
         if (!signUpTokenService.has(signUpIDOTP.getTokenId())) {

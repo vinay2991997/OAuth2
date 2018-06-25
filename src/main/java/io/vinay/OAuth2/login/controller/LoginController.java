@@ -10,10 +10,7 @@ import io.vinay.OAuth2.user.model.User;
 import io.vinay.OAuth2.user.repository.UserRepository;
 import io.vinay.OAuth2.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class LoginController {
@@ -27,8 +24,13 @@ public class LoginController {
     @Autowired
     private AuthDataService authDataService;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/login")
-    public AuthCode login(@RequestBody LoginCredential loginCredential) {
+    @RequestMapping(method = RequestMethod.GET, value = "/login")
+    public AuthCode login(@RequestHeader(value = "clientId") String clientId,
+                          @RequestHeader(value = "phone") String phone,
+                          @RequestHeader(value = "pass") String pass) {
+
+
+        LoginCredential loginCredential = new LoginCredential(clientId,phone,pass);
 
         // credential validation
 
@@ -43,7 +45,6 @@ public class LoginController {
         }
 
 
-
         // password check
         User user = userService.get(loginCredential.getPhone());
         if (user.getPassword().equals(loginCredential.getPassword())) {
@@ -52,7 +53,7 @@ public class LoginController {
 
             // check whether the user already has given access to the client
             if (authDataService.hasAlready(loginCredential.getClientId(), loginCredential.getPhone())) {
-                return new AuthCode(authDataService.getAuthCode(loginCredential.getClientId(),loginCredential.getPhone()),
+                return new AuthCode(authDataService.getAuthCode(loginCredential.getClientId(), loginCredential.getPhone()),
                         "User has already given access to the Application");
             }
 
