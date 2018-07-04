@@ -1,9 +1,12 @@
 package io.vinay.OAuth2.AccessToken.model;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@Proxy(lazy = false)
 public class AccessToken {
 
     @Id

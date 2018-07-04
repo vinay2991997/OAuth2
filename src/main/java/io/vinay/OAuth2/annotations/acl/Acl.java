@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Acl {
 
-    String[] permission() default {};
+    String permission() default "";
 }

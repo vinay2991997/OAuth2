@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("rolePermissionService")
 public class RolePermissionService {
 
 
@@ -18,6 +18,10 @@ public class RolePermissionService {
 
     public List<RolePermission> findAllByRoleName(String roleName) {
         return rolePermissionRepository.findAllByRoleName(roleName);
+    }
+
+    public void save(RolePermission rolePermission) {
+        rolePermissionRepository.save(rolePermission);
     }
 
     public boolean containsPermission(String roleName, String permission) {
