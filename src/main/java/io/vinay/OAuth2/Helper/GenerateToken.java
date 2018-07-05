@@ -1,4 +1,4 @@
-package io.vinay.OAuth2.GenerateToken;
+package io.vinay.OAuth2.Helper;
 
 import io.vinay.OAuth2.AccessToken.model.AccessToken;
 import io.vinay.OAuth2.SignUp.model.SignUpToken;

@@ -8,7 +8,7 @@ import io.vinay.OAuth2.AuthCode.model.AuthData;
 import io.vinay.OAuth2.AuthCode.service.AuthDataService;
 import io.vinay.OAuth2.Client.model.ClientAuthCredentials;
 import io.vinay.OAuth2.Client.service.ClientService;
-import io.vinay.OAuth2.GenerateToken.GenerateToken;
+import io.vinay.OAuth2.Helper.GenerateToken;
 import io.vinay.OAuth2.ResourceAccess.model.ResourceUser;
 import io.vinay.OAuth2.annotations.acl.Acl;
 import io.vinay.OAuth2.user.service.UserService;

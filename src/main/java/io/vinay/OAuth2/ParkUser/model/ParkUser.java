@@ -14,27 +14,6 @@ public class ParkUser {
     private String email;
     private String password;
 
-    public ParkUser(){
-        this.phone = "";
-        this.name = "";
-        this.email = "";
-        this.password = "";
-    }
-
-    public ParkUser(User user) {
-        this.email = user.getEmail();
-        this.name = user.getName();
-        this.phone = user.getPhone();
-        this.password = user.getPassword();
-    }
-
-    public ParkUser(String phone, String name, String email, String password) {
-        this.phone = phone;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
     public String getPhone() {
         return phone;
     }

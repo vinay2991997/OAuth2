@@ -10,10 +10,11 @@ import java.lang.reflect.Method;
 
 public class AclProcessor {
 
-    public String process(HandlerMethod handlerMethod) {
+
+    // return the permission of the acl annotation applied on the method
+    public static String process(HandlerMethod handlerMethod) {
 
         Method method = handlerMethod.getMethod();
-
         Acl annotation = (Acl) method.getAnnotation(Acl.class);
         String permission = annotation.permission();
         return permission;

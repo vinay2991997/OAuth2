@@ -3,7 +3,7 @@ package io.vinay.OAuth2.Client.controller;
 import io.vinay.OAuth2.Client.model.AppNameInput;
 import io.vinay.OAuth2.Client.model.Client;
 import io.vinay.OAuth2.Client.service.ClientService;
-import io.vinay.OAuth2.GenerateToken.GenerateToken;
+import io.vinay.OAuth2.Helper.GenerateToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

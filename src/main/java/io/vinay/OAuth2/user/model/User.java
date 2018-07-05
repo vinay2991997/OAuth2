@@ -5,6 +5,8 @@ import io.vinay.OAuth2.ParkUser.model.ParkUser;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+// TODO : Add role attribute to the user
+
 @Entity
 public class User {
 

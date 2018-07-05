@@ -22,6 +22,7 @@ public class UserService {
         return !userRepository.existsById(phone) && !userRepository.existsByEmail(email);
     }
 
+    @Deprecated
     public boolean isPhoneValid(String phone) {
         return Pattern.matches("[0-9]{10}", phone);
     }
