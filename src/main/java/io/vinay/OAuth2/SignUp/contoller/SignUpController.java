@@ -1,6 +1,7 @@
 package io.vinay.OAuth2.SignUp.contoller;
 
-import io.vinay.OAuth2.GenerateToken.GenerateToken;
+import io.vinay.OAuth2.Helper.GenerateToken;
+import io.vinay.OAuth2.Helper.Validator;
 import io.vinay.OAuth2.ParkUser.model.ParkUser;
 import io.vinay.OAuth2.ParkUser.service.ParkUserService;
 import io.vinay.OAuth2.SignUp.model.SignUpIDOTP;
@@ -25,21 +26,20 @@ public class SignUpController {
     private SignUpTokenService signUpTokenService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/signup")
-    public SignUpTokenId request(@RequestBody User user) {
+    public SignUpTokenId request(@RequestBody ParkUser parkUser) {
 
-        if (!userService.isPhoneValid(user.getPhone())) {
+        if (!Validator.isPhoneValid(parkUser.getPhone())) {
             return new SignUpTokenId("Phone number is not valid");
         }
 
 
-        if (userService.initialCheck(user.getPhone(), user.getEmail())) {
+        if (userService.initialCheck(parkUser.getPhone(), parkUser.getEmail())) {
 
             // send otp
-            SignUpToken signUpToken = GenerateToken.generate(user.getPhone());
+            SignUpToken signUpToken = GenerateToken.generate(parkUser.getPhone());
             System.out.println("OTP : " + signUpToken.getOTP());
 
             // add to park account
-            ParkUser parkUser = new ParkUser(user);
             parkUserService.add(parkUser);
 
             // return signup token
@@ -78,7 +78,7 @@ public class SignUpController {
             // if yes then transfer account from park to main
             String phone = signUpTokenService.getPhone(signUpIDOTP.getTokenId());
             ParkUser parkUser = parkUserService.get(phone);
-            User user = new User(parkUser);
+            User user = new User(parkUser, "user");
             userService.add(user);
             parkUserService.remove(phone);
             signUpTokenService.remove(signUpIDOTP.getTokenId());

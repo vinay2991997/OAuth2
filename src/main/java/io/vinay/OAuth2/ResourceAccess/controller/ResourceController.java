@@ -8,8 +8,9 @@ import io.vinay.OAuth2.AuthCode.model.AuthData;
 import io.vinay.OAuth2.AuthCode.service.AuthDataService;
 import io.vinay.OAuth2.Client.model.ClientAuthCredentials;
 import io.vinay.OAuth2.Client.service.ClientService;
-import io.vinay.OAuth2.GenerateToken.GenerateToken;
+import io.vinay.OAuth2.Helper.GenerateToken;
 import io.vinay.OAuth2.ResourceAccess.model.ResourceUser;
+import io.vinay.OAuth2.annotations.acl.Acl;
 import io.vinay.OAuth2.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -67,6 +68,7 @@ public class ResourceController {
 
     }
 
+    @Acl(permission = "read resource")
     @RequestMapping(method = RequestMethod.GET, value = "/requestResource")
     public ResourceUser requestAccessToken(@RequestHeader(value = "access_token") String token) {
 
