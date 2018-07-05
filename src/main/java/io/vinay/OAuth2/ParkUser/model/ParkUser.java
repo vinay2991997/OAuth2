@@ -1,7 +1,5 @@
 package io.vinay.OAuth2.ParkUser.model;
 
-import io.vinay.OAuth2.user.model.User;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 

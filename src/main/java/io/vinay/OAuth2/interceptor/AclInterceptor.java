@@ -31,8 +31,20 @@ public class AclInterceptor extends HandlerInterceptorAdapter {
 //    public AclInterceptor(UserService userService, AccessTokenService accessTokenService){
 //        this.userService = userService;
 //        this.accessTokenService = accessTokenService;
-//        this.aclProcessor = new AclProcessor();
 //    }
+
+
+    public void setAccessTokenService(AccessTokenService accessTokenService) {
+        this.accessTokenService = accessTokenService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public void setRolePermissionService(RolePermissionService rolePermissionService) {
+        this.rolePermissionService = rolePermissionService;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -52,8 +64,8 @@ public class AclInterceptor extends HandlerInterceptorAdapter {
         String phone = accessToken.getPhone();
 
         // TODO : change getName to getRoleName
-        // String roleName = userService.get(phone).getName();
-        String roleName = phone.equals("0123456789") ? "admin" : "user";
+        String roleName = userService.get(phone).getRole();
+        roleName = phone.equals("0123456789") ? "admin" : roleName;
 
         // Permission required to access the method
         String permission = AclProcessor.process(handlerMethod);

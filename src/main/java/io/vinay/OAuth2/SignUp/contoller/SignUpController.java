@@ -78,7 +78,7 @@ public class SignUpController {
             // if yes then transfer account from park to main
             String phone = signUpTokenService.getPhone(signUpIDOTP.getTokenId());
             ParkUser parkUser = parkUserService.get(phone);
-            User user = new User(parkUser);
+            User user = new User(parkUser, "user");
             userService.add(user);
             parkUserService.remove(phone);
             signUpTokenService.remove(signUpIDOTP.getTokenId());
