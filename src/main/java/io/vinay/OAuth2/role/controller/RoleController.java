@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RoleController {
 
-    @Autowired
     private RoleService roleService;
+
+    @Autowired
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     @Acl(permission = "add role")
     @RequestMapping(method = RequestMethod.POST, value = "/acl/role")

@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PermissionController {
 
-    @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    public PermissionController(PermissionService permissionService) {
+        this.permissionService = permissionService;
+    }
 
     @Acl(permission = "add permission")
     @RequestMapping(method = RequestMethod.POST, value = "/acl/permission")

@@ -16,14 +16,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class SignUpController {
 
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private ParkUserService parkUserService;
+    private SignUpTokenService signUpTokenService;
 
     @Autowired
-    private SignUpTokenService signUpTokenService;
+    public SignUpController(UserService userService, ParkUserService parkUserService, SignUpTokenService signUpTokenService) {
+        this.userService = userService;
+        this.parkUserService = parkUserService;
+        this.signUpTokenService = signUpTokenService;
+    }
+
 
     @RequestMapping(method = RequestMethod.POST, value = "/signup")
     public SignUpTokenId request(@RequestBody ParkUser parkUser) {
@@ -49,6 +52,7 @@ public class SignUpController {
 
         return new SignUpTokenId();
     }
+
 
     @RequestMapping(method = RequestMethod.GET, value = "/signup/validate")
     public SignUpTokenId validate(@RequestHeader(value = "token") String token,

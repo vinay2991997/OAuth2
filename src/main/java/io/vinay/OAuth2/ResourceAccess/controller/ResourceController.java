@@ -18,17 +18,18 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ResourceController {
 
-    @Autowired
     private ClientService clientService;
-
-    @Autowired
     private AuthDataService authDataService;
-
-    @Autowired
     private AccessTokenService accessTokenService;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    public ResourceController(ClientService clientService, AuthDataService authDataService, AccessTokenService accessTokenService, UserService userService) {
+        this.clientService = clientService;
+        this.authDataService = authDataService;
+        this.accessTokenService = accessTokenService;
+        this.userService = userService;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/requestAccessToken")
     public AccessTokenResponse requestAccessToken(@RequestHeader(value = "Authorization") String authorization,

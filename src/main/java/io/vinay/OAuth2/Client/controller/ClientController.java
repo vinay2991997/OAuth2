@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ClientController {
 
-    @Autowired
     private ClientService clientService;
+
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/registerMyApp")
     public Client registerClient(@RequestBody AppNameInput appNameInput) {
+
         String appName = appNameInput.getAppName();
         if (clientService.existByName(appName)){
             return clientService.findByName(appName);

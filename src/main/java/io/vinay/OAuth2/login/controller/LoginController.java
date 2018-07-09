@@ -11,56 +11,59 @@ import io.vinay.OAuth2.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+// TODO : Decoupling
+
 @RestController
 public class LoginController {
 
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private ClientService clientService;
+    private AuthDataService authDataService;
+    private AuthData authData;
 
     @Autowired
-    private AuthDataService authDataService;
+    public LoginController(UserService userService, ClientService clientService, AuthDataService authDataService, AuthData authData) {
+        this.userService = userService;
+        this.clientService = clientService;
+        this.authDataService = authDataService;
+        this.authData = authData;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/login")
     public AuthCode login(@RequestHeader(value = "clientId") String clientId,
                           @RequestHeader(value = "phone") String phone,
                           @RequestHeader(value = "pass") String pass) {
 
-
-        LoginCredential loginCredential = new LoginCredential(clientId,phone,pass);
-
         // credential validation
 
         // Client existance check
-        if (!clientService.has(loginCredential.getClientId())) {
+        if (!clientService.has(clientId)) {
             return new AuthCode("Unknown Client!!");
         }
 
         // Account Existance check
-        if (!userService.has(loginCredential.getPhone())) {
+        if (!userService.has(phone)) {
             return new AuthCode("Account doesn't exist");
         }
 
 
         // password check
-        User user = userService.get(loginCredential.getPhone());
-        if (user.getPassword().equals(loginCredential.getPassword())) {
+        User user = userService.get(phone);
+        if (user.getPassword().equals(pass)) {
 
             // STATUS : "Login Successful";
 
             // check whether the user already has given access to the client
-            if (authDataService.hasAlready(loginCredential.getClientId(), loginCredential.getPhone())) {
-                return new AuthCode(authDataService.getAuthCode(loginCredential.getClientId(), loginCredential.getPhone()),
+            if (authDataService.hasAlready(clientId, phone)) {
+                return new AuthCode(authDataService.getAuthCode(clientId, phone),
                         "User has already given access to the Application");
             }
 
             // save the details in the auth table
             String authCode = GenerateToken.generateTokenId();
-            AuthData authData = new AuthData(authCode,
-                    loginCredential.getClientId(),
-                    loginCredential.getPhone());
+            authData.setAuthCode(authCode);
+            authData.setClientId(clientId);
+            authData.setPhone(phone);
 
             authDataService.add(authData);
 
