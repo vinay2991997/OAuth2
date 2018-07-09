@@ -1,9 +1,12 @@
 package io.vinay.OAuth2.AuthCode.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@Component
 public class AuthData {
 
     @Id
