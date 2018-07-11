@@ -65,7 +65,7 @@ public class AclInterceptor extends HandlerInterceptorAdapter {
         // Get phone
         String phone = accessToken.getPhone();
 
-        // TODO : change getName to getRoleName
+        // Get Role
         String roleName = userService.get(phone).getRole();
         roleName = phone.equals("0123456789") ? "admin" : roleName;
 

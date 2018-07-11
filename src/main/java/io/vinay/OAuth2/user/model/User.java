@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-// TODO : Add role attribute to the user
 
 @Entity
 @Table(name = "users")
