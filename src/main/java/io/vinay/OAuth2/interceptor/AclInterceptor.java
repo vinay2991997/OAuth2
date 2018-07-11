@@ -19,32 +19,14 @@ import java.lang.reflect.Method;
 @Component
 public class AclInterceptor extends HandlerInterceptorAdapter {
 
-    @Autowired
     private AccessTokenService accessTokenService;
-
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private RolePermissionService rolePermissionService;
 
-
-//    @Autowired
-//    public AclInterceptor(UserService userService, AccessTokenService accessTokenService){
-//        this.userService = userService;
-//        this.accessTokenService = accessTokenService;
-//    }
-
-
-    public void setAccessTokenService(AccessTokenService accessTokenService) {
+    @Autowired
+    public AclInterceptor(AccessTokenService accessTokenService, UserService userService, RolePermissionService rolePermissionService) {
         this.accessTokenService = accessTokenService;
-    }
-
-    public void setUserService(UserService userService) {
         this.userService = userService;
-    }
-
-    public void setRolePermissionService(RolePermissionService rolePermissionService) {
         this.rolePermissionService = rolePermissionService;
     }
 
