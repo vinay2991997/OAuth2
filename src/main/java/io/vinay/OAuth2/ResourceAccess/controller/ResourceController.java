@@ -1,7 +1,6 @@
 package io.vinay.OAuth2.ResourceAccess.controller;
 
 import io.vinay.OAuth2.AccessToken.model.AccessToken;
-import io.vinay.OAuth2.AccessToken.model.AccessTokenInput;
 import io.vinay.OAuth2.AccessToken.model.AccessTokenResponse;
 import io.vinay.OAuth2.AccessToken.service.AccessTokenService;
 import io.vinay.OAuth2.AuthCode.model.AuthData;
@@ -73,14 +72,13 @@ public class ResourceController {
     @RequestMapping(method = RequestMethod.GET, value = "/requestResource")
     public ResourceUser requestAccessToken(@RequestHeader(value = "access_token") String token) {
 
-        AccessTokenInput accessTokenInput = new AccessTokenInput(token);
         // check for existence
-        if (!accessTokenService.existById(accessTokenInput.getAccessToken())) {
+        if (!accessTokenService.existById(token)) {
             return new ResourceUser("Access token is invalid");
         }
 
         // check for expireTime
-        AccessToken accessToken = accessTokenService.getById(accessTokenInput.getAccessToken());
+        AccessToken accessToken = accessTokenService.getById(token);
         if (accessToken.getExpires_at() < System.currentTimeMillis()) {
             return new ResourceUser("Token has been expired!");
         }
