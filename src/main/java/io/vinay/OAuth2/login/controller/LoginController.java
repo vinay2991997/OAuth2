@@ -5,7 +5,6 @@ import io.vinay.OAuth2.AuthCode.model.AuthData;
 import io.vinay.OAuth2.AuthCode.service.AuthDataService;
 import io.vinay.OAuth2.Client.service.ClientService;
 import io.vinay.OAuth2.Helper.GenerateToken;
-import io.vinay.OAuth2.login.model.LoginCredential;
 import io.vinay.OAuth2.user.model.User;
 import io.vinay.OAuth2.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
